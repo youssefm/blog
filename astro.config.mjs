@@ -26,4 +26,5 @@ export default defineConfig({
     extendDefaultPlugins: true,
   },
   site: "https://www.youssefm.com",
+  trailingSlash: "never",
 });

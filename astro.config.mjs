@@ -14,6 +14,7 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
+    drafts: true,
     rehypePlugins: [
       [
         rehypeExternalLinks,

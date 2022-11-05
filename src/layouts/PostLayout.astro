@@ -1,0 +1,28 @@
+---
+import { formatPublishedOn } from "../lib/util";
+import BaseLayout from "./BaseLayout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <article>
+    <div
+      class="grid place-items-center mt-10 xl:pb-6 xl:border-b xl:border-b-neutral-700"
+    >
+      <div class="space-y-1 text-center max-w-prose">
+        <div class="text-neutral-400">
+          {formatPublishedOn(frontmatter.publishedOn)}
+        </div>
+        <h1
+          class="text-3xl font-extrabold tracking-tight text-amber-600 sm:text-5xl sm:leading-14"
+        >
+          {frontmatter.title}
+        </h1>
+      </div>
+    </div>
+    <div class="pt-10 pb-16 prose prose-invert mx-auto">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

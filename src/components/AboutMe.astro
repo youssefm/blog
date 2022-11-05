@@ -1,0 +1,44 @@
+---
+import { Image } from "@astrojs/image/components";
+import { Icon } from "astro-icon";
+import FindMeIcon from "./FindMeIcon.astro";
+---
+
+<div
+  class="grid grid-cols-1 sm:grid-cols-4 sm:grid-rows-[1fr_auto] sm:grid-flow-col place-items-center gap-4 pt-4 pb-8"
+>
+  <Image
+    src="/me.jpg"
+    alt="Youssef Moussaoui"
+    width="128"
+    height="128"
+    format="webp"
+    class="rounded-full"
+  />
+  <div class="flex gap-3 justify-center">
+    <FindMeIcon name="akar-icons:envelope" url="mailto:yms@outlook.com" />
+    <FindMeIcon
+      name="akar-icons:github-fill"
+      url="https://github.com/youssefm"
+    />
+    <FindMeIcon
+      name="akar-icons:linkedin-fill"
+      url="https://www.linkedin.com/in/youssef-moussaoui-b81b275/"
+    />
+    <FindMeIcon
+      name="akar-icons:twitter-fill"
+      url="https://twitter.com/youssefmss"
+    />
+  </div>
+  <div class="prose prose-invert text-neutral-300 text-lg sm:col-span-3">
+    <p>
+      Hi, I'm Youssef and I'm a software engineer living in the SF bay area.
+      I've previously worked at <a href="https://www.color.com" target="_blank"
+        >Color</a
+      >, <a href="https://www.palantir.com" target="_blank">Palantir</a>, and <a
+        href="https://www.microsoft.com"
+        target="_blank">Microsoft</a
+      >. These are the long-form chronicles of my adventures building software.
+    </p>
+  </div>
+</div>

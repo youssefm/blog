@@ -1,0 +1,18 @@
+---
+import type { Post } from "../lib/types";
+import { sortBy } from "../lib/util";
+import Layout from "../layouts/BaseLayout.astro";
+import AboutMe from "../components/AboutMe.astro";
+import PostList from "../components/PostList.astro";
+
+const posts: Post[] = await Astro.glob("./posts/*.{md,mdx}");
+sortBy(posts, (post) => post.frontmatter.publishedOn, true);
+---
+
+<Layout
+  title="Youssef Moussaoui's blog"
+  description="Long-form chronicles of my adventures building software"
+>
+  <AboutMe />
+  <PostList posts={posts} />
+</Layout>

@@ -1,0 +1,14 @@
+---
+import type { Post } from "../lib/types";
+import PostPreview from "./PostPreview.astro";
+
+export interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul>
+  {posts.map((post: Post) => <PostPreview post={post} />)}
+</ul>

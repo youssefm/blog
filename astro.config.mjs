@@ -2,15 +2,10 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import image from "@astrojs/image";
 import rehypeExternalLinks from "rehype-external-links";
-
-// https://astro.build/config
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  build: {
-    format: "file",
-  },
   integrations: [
     tailwind(),
     image({
@@ -30,5 +25,5 @@ export default defineConfig({
     ],
     extendDefaultPlugins: true,
   },
-  site: "https://youssefm.github.io",
+  site: "https://www.youssefm.com",
 });

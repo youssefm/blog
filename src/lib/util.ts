@@ -28,11 +28,3 @@ export const formatPublishedOn = (publishedOn: string) => {
     timeZone: "UTC",
   });
 };
-
-export const stripSuffix = (url: string, suffix: string) => {
-  if (url.endsWith(suffix)) {
-    return url.slice(0, -suffix.length);
-  } else {
-    return url;
-  }
-};

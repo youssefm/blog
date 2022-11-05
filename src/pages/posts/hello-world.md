@@ -1,8 +1,8 @@
 ---
-layout: "../../layouts/PostLayout.astro"
+layout: ../../layouts/PostLayout.astro
 title: Hello World
 description: A story about saying hello to the world, being open to new ideas, and communicating them in a friendly and non-threatening way
-publishedOn: "2022-10-31"
+publishedOn: 2022-10-31
 ---
 
 ## Heading 2

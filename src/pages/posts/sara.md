@@ -1,8 +1,9 @@
 ---
-layout: "../../layouts/PostLayout.astro"
+layout: ../../layouts/PostLayout.astro
 title: Sara
 description: This is a post about Sara
-publishedOn: "2022-10-29"
+publishedOn: 2022-10-29
+draft: true
 ---
 
 ### My girlfriend

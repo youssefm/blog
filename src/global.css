@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.line {
+  padding-left: 1.1428571em;
+  padding-right: 1.1428571em;
+}
+
+.line.highlighted {
+  @apply inline-block w-full bg-[#192e66];
+}

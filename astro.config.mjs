@@ -1,20 +1,22 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import image from "@astrojs/image";
-import rehypeExternalLinks from "rehype-external-links";
 import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import { defineConfig } from "astro/config";
+import rehypeExternalLinks from "rehype-external-links";
+import remarkShiki from "./src/remark/remark-shiki";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
-    tailwind(),
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
     sitemap(),
+    tailwind(),
   ],
   markdown: {
     drafts: true,
+    remarkPlugins: [await remarkShiki({})],
     rehypePlugins: [
       [
         rehypeExternalLinks,
@@ -25,6 +27,7 @@ export default defineConfig({
       ],
     ],
     extendDefaultPlugins: true,
+    syntaxHighlight: false,
   },
   site: "https://www.youssefm.com",
   trailingSlash: "never",

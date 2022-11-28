@@ -10,7 +10,7 @@ const { frontmatter } = Astro.props;
     <div
       class="grid place-items-center mt-10 xl:pb-6 xl:border-b xl:border-b-neutral-700"
     >
-      <div class="space-y-1 text-center max-w-prose">
+      <div class="space-y-1 text-center">
         <div class="text-neutral-400">
           {formatPublishedOn(frontmatter.publishedOn)}
         </div>
@@ -21,7 +21,9 @@ const { frontmatter } = Astro.props;
         </h1>
       </div>
     </div>
-    <div class="pt-10 pb-16 prose prose-invert mx-auto">
+    <div
+      class="pt-10 pb-16 prose prose-invert mx-auto prose-code:before:content-none prose-code:after:content-none"
+    >
       <slot />
     </div>
   </article>

@@ -15,6 +15,10 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            maxWidth: "70ch",
+            h2: {
+              color: colors.amber["500"],
+            },
             a: {
               "&:hover": {
                 color: colors.amber["600"],
@@ -23,6 +27,10 @@ module.exports = {
             li: {
               marginTop: 0,
               marginBottom: 0,
+            },
+            pre: {
+              paddingLeft: 0,
+              paddingRight: 0,
             },
           },
         },

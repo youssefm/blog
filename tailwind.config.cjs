@@ -32,6 +32,10 @@ module.exports = {
               paddingLeft: 0,
               paddingRight: 0,
             },
+            "pre > code": {
+              display: "inline-block",
+              minWidth: "100%",
+            },
           },
         },
       },

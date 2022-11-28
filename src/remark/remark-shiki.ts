@@ -11,10 +11,7 @@ const LANG_REGEX = /^([a-z]+){(\d+(?:,\d+)*)}$/;
  */
 const highlighterCacheAsync = new Map<string, Promise<shiki.Highlighter>>();
 
-const remarkShiki = async (
-  { langs = [], theme = "github-dark", wrap = false },
-  scopedClassName?: string | null
-) => {
+const remarkShiki = async ({ langs = [], theme = "github-dark" }) => {
   let highlighterAsync = highlighterCacheAsync.get(theme);
   if (!highlighterAsync) {
     highlighterAsync = getHighlighter({ theme }).then((hl) => {
@@ -77,44 +74,11 @@ const remarkShiki = async (
       }));
       let html = highlighter!.codeToHtml(node.value, { lang, lineOptions });
 
-      // Q: Couldn't these regexes match on a user's inputted code blocks?
-      // A: Nope! All rendered HTML is properly escaped.
-      // Ex. If a user typed `<span class="line"` into a code block,
-      // It would become this before hitting our regexes:
-      // &lt;span class=&quot;line&quot;
-
       // Replace "shiki" class naming with "astro" and add "is:raw".
       html = html.replace(
         '<pre class="shiki"',
-        `<pre is:raw class="astro-code${
-          scopedClassName ? " " + scopedClassName : ""
-        }"`
+        '<pre is:raw class="astro-code"'
       );
-      // Add "user-select: none;" for "+"/"-" diff symbols
-      if (node.lang === "diff") {
-        html = html.replace(
-          /<span class="line"><span style="(.*?)">([\+|\-])/g,
-          '<span class="line"><span style="$1"><span style="user-select: none;">$2</span>'
-        );
-      }
-      // Handle code wrapping
-      // if wrap=null, do nothing.
-      if (wrap === false) {
-        html = html.replace(/style="(.*?)"/, 'style="$1; overflow-x: auto;"');
-      } else if (wrap === true) {
-        html = html.replace(
-          /style="(.*?)"/,
-          'style="$1; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;"'
-        );
-      }
-
-      // Apply scopedClassName to all nested lines
-      if (scopedClassName) {
-        html = html.replace(
-          /\<span class="line"\>/g,
-          `<span class="line ${scopedClassName}"`
-        );
-      }
 
       node.type = "html";
       node.value = html;

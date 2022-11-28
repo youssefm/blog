@@ -8,5 +8,5 @@
 }
 
 .line.highlighted {
-  @apply inline-block w-full bg-[#192e66];
+  @apply inline-block min-w-full bg-[#192e66];
 }

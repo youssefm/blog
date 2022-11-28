@@ -89,7 +89,7 @@ So what's the problem here? Fundamentally, we have a gap between where we **read
 
 In read committed isolation level, we've seen how reading a value does not guarantee that value won't be changed by a concurrent transaction. Writes, however, work differently. Within a transaction, once you write to a row, no other transaction can write to that row until the transaction completes. One way to think about this is that by writing to a row, you are effectively acquiring a **row-level lock** for the rows that you've written to for the remainder of the transaction.
 
-Now it would be great if we could do the same for reads. If we could only tell the database to lock the order row when we **read** it rather than when we **write** to it, we could avoid other transactions invalidating our precondition. Thankfully, most flavors of SQL provide a way of doing this with the `SELECT FOR UPDATE` command. It provides you a way to fetch rows from the database while also asking the database to treat the read as a write and acquite row-level locks on the rows that are read. Let's see how we can apply this in Django:
+Now it would be great if we could do the same for reads. If we could only tell the database to lock the order row when we **read** it rather than when we **write** to it, we could avoid other transactions invalidating our precondition. Thankfully, most flavors of SQL provide a way of doing this with the `SELECT FOR UPDATE` command. It provides you a way to fetch rows from the database while also asking the database to treat the read as a write and acquire row-level locks on the rows that are read. Let's see how we can apply this in Django:
 
 ```python{4}
     @action(detail=True, methods=["POST"])
@@ -112,7 +112,7 @@ You may have noticed that we read the order row and later wrote to the row withi
 
 To effectively use `select_for_update`, there are a couple things to note:
 
-- `select_for_update` only works within the scope of a database transaction. It's effectively meaningless outside the scope of a database transaction and so Django will raise a `TransactionManagementError` if you try to call it ourside that context.
+- `select_for_update` only works within the scope of a database transaction. It's effectively meaningless outside the scope of a database transaction and so Django will raise a `TransactionManagementError` if you try to call it outside that context.
 - To properly fix race conditions of this type, you must apply `select_for_update` in every affected transaction. I've only shown `complete` above for brevity, but we must update both `complete` and `cancel` to prevent the race condition from occuring in either direction.
 
 ## Solving the race condition with optimistic updates
@@ -152,7 +152,7 @@ In this post, we've looked at a common class of potential race conditions in whi
 
 And described two different ways of solving these race conditions:
 
-- Aquiring row level locks with `select_for_update`
+- Acquiring row level locks with `select_for_update`
 - Optimistically updating the rows under the assumption the preconditions are still true
 
 So which method should you use? I would recommend trying to address your concurrency problems with optimistic updates first. If you're able to do so, you avoid the overhead of a database transaction and the cost of acquiring row-level locks, which can significantly affect the performance of your application under heavy contention.

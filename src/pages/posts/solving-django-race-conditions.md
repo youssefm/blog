@@ -56,7 +56,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 Unfortunately, we've done nothing so far to prevent an order from transitioning between the two terminal states. Imagine a completion request and a cancellation request come in at the same time. They both see that the order is exists and is in the `placed` state, the completion request marks the order as `completed`, and finally the cancellation request sets the state to `canceled`. So the same order has been marked as both `completed` at one point in time and then as `canceled` at a later point in time, which should never happen. We have a race condition.
 
-## How about we use database transactions?
+## Adding database transactions
 
 So how do we fix this? The first thing you might try is to wrap your code in database transactions. Let's see what that looks like:
 
@@ -87,7 +87,7 @@ So what's the problem here? Fundamentally, we have a gap between where we **read
 
 ## Solving the race condition with `select_for_update`
 
-In read committed isolation level, we've seen how reading a value does not guarantee that value won't be changed by a concurrent transaction. Writes, however, work differently. Within a transaction, once you write to a row, no other transaction can write to that row until the transaction completes. One way to think about this is that by writing to a row, you are effectively acquiting a **row-level lock** for the rows that you've written to for the remainder of the transaction.
+In read committed isolation level, we've seen how reading a value does not guarantee that value won't be changed by a concurrent transaction. Writes, however, work differently. Within a transaction, once you write to a row, no other transaction can write to that row until the transaction completes. One way to think about this is that by writing to a row, you are effectively acquiring a **row-level lock** for the rows that you've written to for the remainder of the transaction.
 
 Now it would be great if we could do the same for reads. If we could only tell the database to lock the order row when we **read** it rather than when we **write** to it, we could avoid other transactions invalidating our precondition. Thankfully, most flavors of SQL provide a way of doing this with the `SELECT FOR UPDATE` command. It provides you a way to fetch rows from the database while also asking the database to treat the read as a write and acquite row-level locks on the rows that are read. Let's see how we can apply this in Django:
 

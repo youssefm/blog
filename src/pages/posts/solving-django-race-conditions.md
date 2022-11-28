@@ -83,7 +83,7 @@ To understand how this is possible, we need to understand a little about transac
 
 So in our case, Django could kick off two transactions. In both transactions, we would first read that the order is in the `placed` state. Then in one of the transactions, we would mark the order as `completed` and commit it to the database. Then, the other transaction would now change the `completed` value to `canceled` and commit that to the database. The non-repeatable read here refers to the fact that we read the value as `placed` in the cancellation transaction, and had we read that value after the completion transaction had been committed, we would have read `completed` instead.
 
-So what's the problem here? Fundamentally, we have a gap between where we **read** the state of the order and where we **wrote** to it. Another transaction was able to slip in between the read and the write and invalidate our assertion that the order was in the `placed` state. Despite the database transactions, our operations are not truly atomic.
+Fundamentally, we have a gap between where we **read** the state of the order and where we **wrote** to it. Another transaction was able to slip in between the read and the write and invalidate our assertion that the order was in the `placed` state. Despite the database transactions, our operations are not truly atomic.
 
 ## Solving the race condition with `select_for_update`
 

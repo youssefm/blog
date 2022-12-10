@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: Solving Django race conditions with select_for_update and optimistic updates
 description: "If you're running Django at scale, you're bound to run into race conditions sooner or later. In this blog post, we explore two different methods of solving a common class of race conditions: select_for_update and optimistic updates."
-publishedOn: 2022-11-20
+publishedOn: 2022-12-10
 draft: true
 ---
 
@@ -22,7 +22,7 @@ class Order(models.Model):
 
 It's a simple `Order` model with just one field: `state`. All of our orders begin in the `placed` state and eventually transition either into the `completed` state or the `canceled` state. But critically, we've designed our system to depend on the fact that an order can never go from the `completed` state to the `canceled` state or from the `canceled` state to the `completed` state.
 
-We might write the following Django REST viewset to implement our state transitions:
+We might write the following Django REST framework viewset to implement our state transitions:
 
 ```python
 class OrderViewSet(viewsets.ModelViewSet):
@@ -54,7 +54,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response()
 ```
 
-Unfortunately, we've done nothing so far to prevent an order from transitioning between the two terminal states. Imagine a completion request and a cancellation request come in at the same time. They both see that the order is exists and is in the `placed` state, the completion request marks the order as `completed`, and finally the cancellation request sets the state to `canceled`. So the same order has been marked as both `completed` at one point in time and then as `canceled` at a later point in time, which should never happen. We have a race condition.
+Unfortunately, we've done nothing so far to prevent an order from transitioning between the two terminal states. Imagine a completion request and a cancellation request come in at the same time. They both see that the order exists and is in the `placed` state, the completion request marks the order as `completed`, and finally the cancellation request sets the state to `canceled`. So the same order has been marked as both `completed` at one point in time and then as `canceled` at a later point in time, which should never happen. We have a race condition.
 
 ## Adding database transactions
 
@@ -117,7 +117,7 @@ To effectively use `select_for_update`, there are a couple things to note:
 
 ## Solving the race condition with optimistic updates
 
-Now let's look at a different method of approaching the same problem. In our original code, we were making two database query for each request. We were first fetching the order from the database, checking the state of the order (our **[precondition](https://en.wikipedia.org/wiki/Precondition)**), and finally updating the state of the order. What if instead we could write a single SQL statement and make the precondition **part of the database command**? We can do just that with `update`:
+Now let's look at a different method of approaching the same problem. In our original code, we were making two database queries for each request. We were first fetching the order from the database, checking the state of the order (our **[precondition](https://en.wikipedia.org/wiki/Precondition)**), and finally updating the state of the order. What if instead we could write a single SQL statement and make the precondition **part of the database command**? We can do just that with `update`:
 
 ```python{9,10,11,12,13,14}
     @action(detail=True, methods=["POST"])

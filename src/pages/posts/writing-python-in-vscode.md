@@ -25,9 +25,9 @@ Notice how `import gc` automatically gets added for you by the editor at the top
 
 ## Auto importing user symbols in VS Code
 
-So how do we get this feature working with Python in VS Code? Until recently, you couldn't get it fully working. You could get VS Code to suggest symbols in the standard library, in third-party Python modules, and in your own files that were opened in VS Code. But importantly, you couldn't get VS Code to suggest symbols in files you had not yet opened. This felt like a glaring omission to me so [I petitioned Microsoft to fix this](https://github.com/microsoft/pylance-release/issues/3670). And as of last week, they've added a new option to fix this.
+So how do we get this feature working with Python in VS Code? Until recently, you couldn't get it fully working. You could get VS Code to suggest symbols in the standard library, in third-party Python modules, and in your own files that were opened in VS Code. But importantly, you couldn't get VS Code to suggest symbols in files you had not yet opened. This felt like a glaring omission to me so [I petitioned Microsoft to fix this](https://github.com/microsoft/pylance-release/issues/3670). And last week, they added a new option called `autoImportUserSymbols` to address this.
 
-To get auto import working with user symbols working in VS Code, first make sure you have the latest versions of the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) VS Code extensions installed. Next, open the settings file by selecting "Preferences: Open User Settings (JSON)" in the command palette, and add the following lines:
+To get auto import working with user symbols in VS Code, first make sure you have the latest versions of the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) VS Code extensions installed. Next, open the settings file by selecting "Preferences: Open User Settings (JSON)" in the command palette, and add the following lines:
 
 ```json{2-4}
 {

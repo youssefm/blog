@@ -11,7 +11,11 @@ export default defineConfig({
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) =>
+        page !==
+        "https://www.youssefm.com/posts/solving-django-race-conditions",
+    }),
     tailwind(),
   ],
   markdown: {

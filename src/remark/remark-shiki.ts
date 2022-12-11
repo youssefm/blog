@@ -2,7 +2,7 @@ import type * as shiki from "shiki";
 import { getHighlighter } from "shiki";
 import { visit } from "unist-util-visit";
 
-const LANG_REGEX = /^([a-z]+){(\d+(?:,\d+)*)}$/;
+const LANG_REGEX = /^([a-z]+){(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*)}$/;
 
 /**
  * getHighlighter() is the most expensive step of Shiki. Instead of calling it on every page,
@@ -50,9 +50,21 @@ const remarkShiki = async ({ langs = [], theme = "github-dark" }) => {
         const match = LANG_REGEX.exec(node.lang);
         if (match) {
           nodeLang = match[1];
-          highlightedLines = match[2]
-            .split(",")
-            .map((lineString) => parseInt(lineString));
+          highlightedLines = [];
+          for (const lineString of match[2].split(",")) {
+            const components = lineString.split("-");
+            if (components.length === 1) {
+              highlightedLines.push(parseInt(lineString));
+            } else {
+              for (
+                let i = parseInt(components[0]);
+                i <= parseInt(components[1]);
+                i++
+              ) {
+                highlightedLines.push(i);
+              }
+            }
+          }
         }
 
         const langExists = highlighter.getLoadedLanguages().includes(nodeLang);

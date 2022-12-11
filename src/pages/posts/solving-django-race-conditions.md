@@ -119,7 +119,7 @@ To effectively use `select_for_update`, there are a couple things to note:
 
 Now let's look at a different method of approaching the same problem. In our original code, we were making two database queries for each request. We were first fetching the order from the database, checking the state of the order (our **[precondition](https://en.wikipedia.org/wiki/Precondition)**), and finally updating the state of the order. What if instead we could write a single SQL statement and make the precondition **part of the database command**? We can do just that with `update`:
 
-```python{9,10,11,12,13,14}
+```python{9-14}
     @action(detail=True, methods=["POST"])
     def complete(self, request, pk=None):
         order = Order.objects.filter(id=pk).first()

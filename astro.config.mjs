@@ -1,5 +1,4 @@
 import image from "@astrojs/image";
-import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import rehypeExternalLinks from "rehype-external-links";
@@ -10,11 +9,6 @@ export default defineConfig({
   integrations: [
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
-    }),
-    sitemap({
-      filter: (page) =>
-        page !==
-        "https://www.youssefm.com/posts/solving-django-race-conditions",
     }),
     tailwind(),
   ],

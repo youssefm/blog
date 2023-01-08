@@ -36,6 +36,32 @@ module.exports = {
               display: "inline-block",
               minWidth: "100%",
             },
+            ".line": {
+              paddingLeft: "1.1428571em",
+              paddingRight: "1.1428571em",
+            },
+            ".line.highlighted": {
+              display: "inline-block",
+              minWidth: "100%",
+              backgroundColor: "#c8c8ff1a",
+              borderLeft: "2px solid #2a69a9",
+              paddingLeft: "1.0178571em",
+            },
+          },
+        },
+        lg: {
+          css: {
+            pre: {
+              paddingLeft: 0,
+              paddingRight: 0,
+            },
+            ".line": {
+              paddingLeft: "2.6428571em",
+              paddingRight: "2.6428571em",
+            },
+            ".line.highlighted": {
+              paddingLeft: "2.5178571em",
+            },
           },
         },
       },

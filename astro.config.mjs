@@ -12,7 +12,6 @@ const prettyCodeOptions = {
   onVisitHighlightedWord(node) {
     node.properties.className = ["word"];
   },
-  tokensMap: {},
 };
 
 // https://astro.build/config

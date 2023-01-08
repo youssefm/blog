@@ -8,5 +8,8 @@
 }
 
 .line.highlighted {
-  @apply inline-block min-w-full bg-[#192e66];
+  @apply inline-block min-w-full border-l-2;
+  background-color: #c8c8ff1a;
+  border-color: #0669ce;
+  padding-left: 1.0178571em;
 }

@@ -60,7 +60,7 @@ Unfortunately, we've done nothing so far to prevent an order from transitioning 
 
 So how do we fix this? The first thing you might try is to wrap your code in database transactions. Let's see what that looks like:
 
-```python{2}
+```python {2}
 @action(detail=True, methods=["POST"])
 @transaction.atomic
 def complete(self, request, pk=None):
@@ -91,7 +91,7 @@ In read committed isolation level, we've seen how reading a value does not guara
 
 Now it would be great if we could do the same for reads. If we could only tell the database to lock the order row when we **read** it rather than when we **write** to it, we could avoid other transactions invalidating our precondition. Thankfully, most flavors of SQL provide a way of doing this with the `SELECT FOR UPDATE` command. It provides you a way to fetch rows from the database while also asking the database to treat the read as a write and acquire row-level locks on the rows that are read. Let's see how we can apply this in Django:
 
-```python{4}
+```python {4}
 @action(detail=True, methods=["POST"])
 @transaction.atomic
 def complete(self, request, pk=None):
@@ -119,7 +119,7 @@ To effectively use `select_for_update`, there are a couple things to note:
 
 Now let's look at a different method of approaching the same problem. In our original code, we were making two database queries for each request. We were first fetching the order from the database, checking the state of the order (our **[precondition](https://en.wikipedia.org/wiki/Precondition)**), and finally updating the state of the order. What if instead we could write a single SQL statement and make the precondition **part of the database command**? We can do just that with `update`:
 
-```python{9-14}
+```python {9-14}
 @action(detail=True, methods=["POST"])
 def complete(self, request, pk=None):
     order = Order.objects.filter(id=pk).first()

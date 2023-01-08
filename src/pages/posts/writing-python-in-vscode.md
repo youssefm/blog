@@ -29,7 +29,7 @@ So how do we get this feature working with Python in VS Code? Until recently, yo
 
 To get auto import working with user symbols in VS Code, first make sure you have the latest versions of the [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) VS Code extensions installed. Next, open the settings file by selecting "Preferences: Open User Settings (JSON)" in the command palette, and add the following lines:
 
-```json{2-4}
+```json {2-4}
 {
   "python.analysis.autoImportCompletions": true,
   "python.analysis.autoImportUserSymbols": true,

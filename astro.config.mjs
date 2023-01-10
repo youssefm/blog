@@ -5,7 +5,7 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypePrettyCode from "rehype-pretty-code";
 
 const prettyCodeOptions = {
-  theme: "github-dark",
+  theme: JSON.parse(fs.readFileSync("./themes/darkly-color-theme.json")),
   onVisitHighlightedLine(node) {
     node.properties.className.push("highlighted");
   },

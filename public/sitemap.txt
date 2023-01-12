@@ -1,2 +1,3 @@
 https://www.youssefm.com
 https://www.youssefm.com/posts/writing-python-in-vscode
+https://www.youssefm.com/posts/solving-django-race-conditions

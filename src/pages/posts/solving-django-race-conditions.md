@@ -2,8 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: Solving Django race conditions with select_for_update and optimistic updates
 description: "If you're running Django at scale, you're bound to run into race conditions sooner or later. In this blog post, we explore two different methods of solving a common class of race conditions: select_for_update and optimistic updates."
-publishedOn: 2022-12-10
-draft: true
+publishedOn: 2023-01-12
 ---
 
 If you're running Django at scale, you're bound to run into race conditions sooner or later. These race conditions can take many forms, but I'd like to explore an especially common form in this blog post. Let's start with an example.

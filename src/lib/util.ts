@@ -5,7 +5,7 @@ const compare = <T>(a: T, b: T) => {
 };
 
 const createComparer = <T>(
-  getKey: (item: T) => number | string,
+  getKey: (item: T) => number | string | Date,
   descending = false
 ) =>
   descending
@@ -14,16 +14,15 @@ const createComparer = <T>(
 
 export const sortBy = <T>(
   array: T[],
-  getKey: (item: T) => number | string,
+  getKey: (item: T) => number | string | Date,
   descending = false
 ) => {
   array.sort(createComparer(getKey, descending));
   return array;
 };
 
-export const formatPublishedOn = (publishedOn: string) => {
-  const publishedOnDate = new Date(publishedOn);
-  return publishedOnDate.toLocaleDateString("en-US", {
+export const formatPublishedOn = (publishedOn: Date) => {
+  return publishedOn.toLocaleDateString("en-US", {
     dateStyle: "long",
     timeZone: "UTC",
   });

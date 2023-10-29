@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Async iteration of Server-sent events with stream-event-source
 description: "Asynchronous iteration seems especially well suited for Server-sent events. In this post, we introduce a new npm package for reading SSEs through the async iteration protocol."
 publishedOn: 2023-10-21

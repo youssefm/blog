@@ -1,13 +1,14 @@
 ---
-import type { Post } from "../lib/types";
+import { getCollection } from "astro:content"
+
 import { sortBy } from "../lib/util";
 import Layout from "../layouts/BaseLayout.astro";
 import AboutMe from "../components/AboutMe.astro";
 import PostList from "../components/PostList.astro";
 
-let posts: Post[] = await Astro.glob("./posts/*.{md,mdx}");
-posts = posts.filter((post) => !post.frontmatter.draft);
-sortBy(posts, (post) => post.frontmatter.publishedOn, true);
+let posts = await getCollection('posts');
+posts = posts.filter((post) => !post.data.draft);
+sortBy(posts, (post) => post.data.publishedOn, true);
 ---
 
 <Layout

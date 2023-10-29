@@ -1,5 +1,5 @@
 ---
-import type { Post } from "../lib/types";
+import type { Post } from "../lib/type";
 import { formatPublishedOn } from "../lib/util";
 
 export interface Props {
@@ -14,14 +14,14 @@ const { post } = Astro.props;
     <h2
       class="text-amber-600 text-2xl font-bold tracking-tight hover:text-amber-650"
     >
-      <a href={post.url}>{post.frontmatter.title}</a>
+      <a href={`/posts/${post.slug}`}>{post.data.title}</a>
     </h2>
     <div class="mt-2 text-neutral-200">
-      {formatPublishedOn(post.frontmatter.publishedOn)}
+      {formatPublishedOn(post.data.publishedOn)}
     </div>
   </div>
-  <div class="prose text-neutral-400">{post.frontmatter.description}</div>
+  <div class="prose text-neutral-400">{post.data.description}</div>
   <div>
-    <a href={post.url} class="hover:text-amber-600"> Read &rarr;</a>
+    <a href={`/posts/${post.slug}`} class="hover:text-amber-600"> Read &rarr;</a>
   </div>
 </li>

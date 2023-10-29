@@ -1,4 +1,5 @@
-import image from "@astrojs/image";
+import fs from "node:fs";
+
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import rehypeExternalLinks from "rehype-external-links";
@@ -16,15 +17,9 @@ const prettyCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    image({
-      serviceEntryPoint: "@astrojs/image/sharp",
-    }),
-    tailwind(),
-  ],
+  integrations: [tailwind()],
   markdown: {
     drafts: true,
-    extendDefaultPlugins: true,
     syntaxHighlight: false,
     rehypePlugins: [
       [

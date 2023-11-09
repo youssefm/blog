@@ -7,6 +7,7 @@ export interface Props {
 }
 
 const { post } = Astro.props;
+const { remarkPluginFrontmatter } = await post.render();
 ---
 
 <li class="py-8 sm:py-12 space-y-6 border-t border-neutral-700">
@@ -16,11 +17,11 @@ const { post } = Astro.props;
     >
       <a href={`/posts/${post.slug}`}>{post.data.title}</a>
     </h2>
-    <div class="mt-2 text-neutral-200">
-      {formatPublishedOn(post.data.publishedOn)}
+    <div class="mt-2 text-neutral-400 text-sm">
+      {formatPublishedOn(post.data.publishedOn)} &nbsp;·&nbsp; {Math.ceil(remarkPluginFrontmatter.minutesToRead)} min read
     </div>
   </div>
-  <div class="prose text-neutral-400">{post.data.description}</div>
+  <div class="prose text-neutral-300">{post.data.description}</div>
   <div>
     <a href={`/posts/${post.slug}`} class="hover:text-amber-600"> Read &rarr;</a>
   </div>

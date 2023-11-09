@@ -5,9 +5,10 @@ import BaseLayout from "./BaseLayout.astro";
 
 export interface Props {
   frontmatter: Post["data"];
+  minutesToRead: number;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, minutesToRead } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
@@ -17,7 +18,7 @@ const { frontmatter } = Astro.props;
     >
       <div class="space-y-1 text-center">
         <div class="text-neutral-400">
-          {formatPublishedOn(frontmatter.publishedOn)}
+          {formatPublishedOn(frontmatter.publishedOn)} &nbsp;·&nbsp; {Math.ceil(minutesToRead)} min read
         </div>
         <h1
           class="text-3xl font-extrabold tracking-tight text-amber-600 sm:text-5xl sm:leading-14 max-w-[23ch]"

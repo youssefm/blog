@@ -15,9 +15,9 @@ export interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, remarkPluginFrontmatter } = await entry.render();
 ---
 
-<PostLayout frontmatter={entry.data}>
+<PostLayout frontmatter={entry.data} minutesToRead={remarkPluginFrontmatter.minutesToRead}>
   <Content />
 </PostLayout>

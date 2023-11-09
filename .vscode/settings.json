@@ -2,6 +2,13 @@
   "search.exclude": {
     "package-lock.json": true
   },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "astro", // Enable .astro
+    "typescript", // Enable .ts
+    "typescriptreact" // Enable .tsx
+  ],
   "files.exclude": {
     "dist": true
   }

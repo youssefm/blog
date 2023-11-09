@@ -6,7 +6,7 @@ const compare = <T>(a: T, b: T) => {
 
 const createComparer = <T>(
   getKey: (item: T) => number | string | Date,
-  descending = false
+  descending = false,
 ) =>
   descending
     ? (a: T, b: T) => compare(getKey(b), getKey(a))
@@ -15,7 +15,7 @@ const createComparer = <T>(
 export const sortBy = <T>(
   array: T[],
   getKey: (item: T) => number | string | Date,
-  descending = false
+  descending = false,
 ) => {
   array.sort(createComparer(getKey, descending));
   return array;

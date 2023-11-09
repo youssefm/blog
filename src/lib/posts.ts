@@ -3,7 +3,7 @@ import { sortBy } from "./util";
 import type { Post } from "./type";
 
 export async function getPublishedPosts(
-  descending: boolean = false
+  descending: boolean = false,
 ): Promise<Post[]> {
   let posts = await getCollection("posts");
   posts = posts.filter((post) => !post.data.draft);

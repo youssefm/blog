@@ -18,11 +18,15 @@ const { remarkPluginFrontmatter } = await post.render();
       <a href={`/posts/${post.slug}`}>{post.data.title}</a>
     </h2>
     <div class="mt-2 text-neutral-400 text-sm">
-      {formatPublishedOn(post.data.publishedOn)} &nbsp;·&nbsp; {Math.ceil(remarkPluginFrontmatter.minutesToRead)} min read
+      {formatPublishedOn(post.data.publishedOn)} &nbsp;·&nbsp; {
+        Math.ceil(remarkPluginFrontmatter.minutesToRead)
+      } min read
     </div>
   </div>
   <div class="prose text-neutral-300">{post.data.description}</div>
   <div>
-    <a href={`/posts/${post.slug}`} class="hover:text-amber-600"> Read &rarr;</a>
+    <a href={`/posts/${post.slug}`} class="hover:text-amber-600">
+      Read &rarr;</a
+    >
   </div>
 </li>

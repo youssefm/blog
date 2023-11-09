@@ -1,11 +1,12 @@
 ---
 import { Image } from "astro:assets";
+import logoImage from "assets/logo.png";
 ---
 
 <header class="flex my-4 sm:my-10 text-neutral-100">
   <a href="/" class="flex items-center text-neutral-300 hover:text-amber-600">
     <Image
-      src="/apple-touch-icon.png"
+      src={logoImage}
       alt="Feather Pen"
       height="32"
       width="32"

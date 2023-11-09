@@ -1,13 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import FindMeIcon from "./FindMeIcon.astro";
+import meImage from "assets/me.jpg"
 ---
 
 <div
   class="grid grid-cols-1 sm:grid-cols-4 sm:grid-rows-[1fr_auto] sm:grid-flow-col place-items-center gap-4 pt-4 pb-8"
 >
   <Image
-    src="/me.jpg"
+    src={meImage}
     alt="Youssef Moussaoui"
     width="128"
     height="128"

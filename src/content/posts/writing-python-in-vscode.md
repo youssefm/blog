@@ -18,7 +18,7 @@ Thankfully, code editors have come up with a solution to this: auto import. You 
 
 Here's an example within VS Code itself:
 
-![Auto import in VS Code](../../assets/auto-import.gif)
+![Auto import in VS Code](assets/auto-import.gif)
 
 Notice how `import gc` automatically gets added for you by the editor at the top of the file.
 
@@ -38,4 +38,4 @@ To get auto import working with user symbols in VS Code, first make sure you hav
 
 That's it! You can now start typing in a Python file and you should see a list of all the symbols you can now auto import.
 
-![Auto import working with user symbols](../../assets/auto-import-working.png)
+![Auto import working with user symbols](assets/auto-import-working.png)

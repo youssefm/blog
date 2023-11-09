@@ -1,4 +1,4 @@
-import { getPublishedPosts } from "../lib/posts";
+import { getPublishedPosts } from "lib/posts";
 
 const BASE_URL = "https://www.youssefm.com";
 

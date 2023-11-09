@@ -1,7 +1,7 @@
 ---
-import Layout from "layouts/BaseLayout.astro";
 import AboutMe from "components/AboutMe.astro";
 import PostList from "components/PostList.astro";
+import Layout from "layouts/BaseLayout.astro";
 import { getPublishedPosts } from "lib/posts";
 
 const posts = await getPublishedPosts(true);

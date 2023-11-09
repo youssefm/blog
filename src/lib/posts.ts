@@ -1,6 +1,7 @@
 import { getCollection } from "astro:content";
-import { sortBy } from "./util";
+
 import type { Post } from "./type";
+import { sortBy } from "./util";
 
 export async function getPublishedPosts(
   descending: boolean = false,

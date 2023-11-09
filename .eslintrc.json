@@ -6,9 +6,28 @@
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "root": true,
-  "rules": {},
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "caseInsensitive": true,
+          "order": "asc"
+        },
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always",
+        "warnOnUnassignedImports": true
+      }
+    ]
+  },
   "overrides": [
     {
       "files": "*.astro",

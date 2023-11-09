@@ -6,11 +6,11 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
+    "check": "tsc && astro check",
     "dev": "astro dev",
     "lint": "eslint src",
     "preview": "astro preview",
-    "start": "astro dev",
-    "ts-lint": "tsc && astro check"
+    "start": "astro dev"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.2",

@@ -3,11 +3,11 @@
     "package-lock.json": true
   },
   "eslint.validate": [
+    "astro",
     "javascript",
     "javascriptreact",
-    "astro", // Enable .astro
-    "typescript", // Enable .ts
-    "typescriptreact" // Enable .tsx
+    "typescript",
+    "typescriptreact"
   ],
   "files.exclude": {
     "dist": true

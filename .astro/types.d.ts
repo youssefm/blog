@@ -189,6 +189,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".md"] };
+"transferring-cookies.md": {
+	id: "transferring-cookies.md";
+  slug: "transferring-cookies";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".md"] };
 "writing-python-in-vscode.md": {
 	id: "writing-python-in-vscode.md";
   slug: "writing-python-in-vscode";

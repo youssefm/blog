@@ -4,6 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypePrettyCode from "rehype-pretty-code";
+
 import { remarkReadingTime } from "./src/plugins/reading-time";
 
 const prettyCodeOptions = {

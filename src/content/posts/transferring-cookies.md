@@ -38,7 +38,7 @@ While HTTPS ensures that the query string isn't visible in transit, it is still 
 
 So altogether, our transfer process looked like this:
 
-1. When users would hit the old domain, the server would read their session cookie, generate a transfer token, and redirect the user to a page on the new domain with the transfer token in the query string: `pi.ai/transfer?transferToken=abc123...`.
+1. When users would hit the old domain, the server would read their session cookie, generate a transfer token, and redirect the user to a page on the new domain with the transfer token in the query string: `pi.ai/transfer?token=abc123...`.
 2. On this transfer page for the new domain, we would decrypt the transfer token, ensure it was not expired, and issue a redirect for our main page `pi.ai` along with a `Set-Cookie` header that transferred over the session cookie.
 
 ## Conclusion

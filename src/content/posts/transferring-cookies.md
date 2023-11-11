@@ -13,7 +13,7 @@ Let's start with a simple thought experiment. Suppose you had a session token of
 Set-Cookie: session=ABC123; ...
 ```
 
-response header to get the cookie transferred to the new domain. Now, this works - users will have their sessions transferred, but it comes with some unfortunate security implications. Session cookies are extremely sensitive from a security standpoint and you ideally never want them exposed as part of a URL. If the session is part of the URL exposed to a user, they could copy it, send a link to someone, and inadvertently share their session by doing so. You also run the risk of having these session tokens showing up in internal logs, where they don't belong. To mitigate these security risks, we implemented the following measures.
+response header to get the cookie transferred to the new domain. Now, this works - users will have their sessions transferred, but it comes with some unfortunate security implications. Session cookies are extremely sensitive from a security standpoint and you ideally never want them exposed as part of a URL. If the session is part of the URL exposed to a user, they could copy it, send a link to someone, and inadvertently share their session by doing so. You also run the risk of having these session tokens show up in internal logs, where they don't belong. To mitigate these security risks, we implemented a couple measures.
 
 ## Using an encrypted transfer token
 

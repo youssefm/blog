@@ -2,7 +2,6 @@
 title: Transferring cookies from one domain to another
 description: "Migrating session cookies from one domain to another is trickier than it seems. In this post, I explore how we approached this problem at Inflection AI."
 publishedOn: 2023-11-14
-draft: true
 ---
 
 Earlier this year, we decided at [Inflection](https://inflection.ai) that we wanted to change the domain for our primary web application [Pi](https://pi.ai) from `heypi.com` to `pi.ai`. Now you can easily start redirecting users from the old domain to the new domain, but these users' session cookies won't follow them to the new domain. Cookies are, for good reason, specific to a single domain. But we wanted to avoid forcing logged in users to log in again on the new domain. Now there are many different ways of achieving this, but in this post, I'd like to describe our own approach and how we got there.

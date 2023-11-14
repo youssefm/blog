@@ -4,7 +4,7 @@ description: "Migrating session cookies from one domain to another is trickier t
 publishedOn: 2023-11-14
 ---
 
-Earlier this year, we decided at [Inflection](https://inflection.ai) that we wanted to change the domain for our primary web application [Pi](https://pi.ai) from `heypi.com` to `pi.ai`. Now you can easily start redirecting users from the old domain to the new domain, but these users' session cookies won't follow them to the new domain. Cookies are, for good reason, specific to a single domain. But we wanted to avoid forcing logged in users to log in again on the new domain. Now there are many different ways of achieving this, but in this post, I'd like to describe our own approach and how we got there.
+Earlier this year, we decided at [Inflection](https://inflection.ai) that we wanted to change the domain for our primary web application [Pi](https://pi.ai) from `heypi.com` to `pi.ai`. Now you can easily start redirecting users from the old domain to the new domain, but these users' session cookies won't follow them to the new domain. Cookies are, for good reason, specific to a single domain. But we wanted to avoid forcing logged in users to log in again on the new domain. There are many several ways of achieving this, but in this post, I'd like to describe our own approach and how we got there.
 
 Let's start with a simple thought experiment. Suppose you had a session token of `ABC123`. In theory, you could have a server that intercepts requests to the old domain `heypi.com`, reads the session token off of the request, and appends it as a query string parameter to redirect to the new domain: `pi.ai?session=ABC123`. On the new domain, you could then read this query string value and respond to the request with a
 

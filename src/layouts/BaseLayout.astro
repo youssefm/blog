@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import Container from "components/Container.astro";
 import Header from "components/Header.astro";
 import "global.css";
@@ -102,6 +103,7 @@ const ANALYTICS_ENABLED =
         />
       )
     }
+    <ViewTransitions />
   </head>
   <body class="bg-neutral-900 text-neutral-100">
     <Container>

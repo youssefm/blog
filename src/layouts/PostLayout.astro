@@ -15,6 +15,7 @@ const { frontmatter, minutesToRead } = Astro.props;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <div class="progress-bar"></div>
   <article>
     <div
       class="grid place-items-center mt-10 xl:pb-6 xl:border-b xl:border-b-neutral-700"

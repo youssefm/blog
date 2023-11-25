@@ -5,3 +5,32 @@
 html {
   scrollbar-gutter: stable;
 }
+
+@supports (animation-timeline: scroll()) {
+  @keyframes scaleProgress {
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    animation: scaleProgress auto linear;
+    animation-timeline: scroll();
+    transform-origin: left;
+    height: 8px;
+    background-color: theme("colors.amber.700");
+  }
+
+  @media (min-width: 1280px) {
+    .progress-bar {
+      height: 12px;
+    }
+  }
+}

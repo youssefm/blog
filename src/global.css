@@ -21,7 +21,7 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    animation: scaleProgress auto linear;
+    animation: scaleProgress linear;
     animation-timeline: scroll();
     transform-origin: left;
     height: 8px;

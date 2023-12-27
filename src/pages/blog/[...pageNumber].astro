@@ -1,0 +1,26 @@
+---
+import PostPage from "components/PostPage.astro";
+import { PAGE_SIZE, getPublishedPosts } from "lib/posts";
+import type { Post } from "lib/type";
+import { chunk } from "lib/util";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts(true);
+  const pages = chunk(posts, PAGE_SIZE);
+  return pages.map((pagePosts, index) => {
+    const pageNumber = index + 1;
+    return {
+      params: { pageNumber },
+      props: { posts: pagePosts },
+    };
+  });
+}
+
+export interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<PostPage posts={posts} />

@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import type { Post } from "./type";
 import { sortBy } from "./util";
 
+export const PAGE_SIZE = 5;
+
 export async function getPublishedPosts(
   descending: boolean = false,
 ): Promise<Post[]> {

@@ -27,3 +27,22 @@ export const formatPublishedOn = (publishedOn: Date) => {
     timeZone: "UTC",
   });
 };
+
+export const chunk = <T>(iterable: Iterable<T>, chunkSize: number): T[][] => {
+  const result: T[][] = [];
+  let current: T[] = [];
+
+  for (const item of iterable) {
+    current.push(item);
+
+    if (current.length >= chunkSize) {
+      result.push(current);
+      current = [];
+    }
+  }
+
+  if (current.length > 0) {
+    result.push(current);
+  }
+  return result;
+};

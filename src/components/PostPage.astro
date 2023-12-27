@@ -1,0 +1,21 @@
+---
+import Layout from "layouts/BaseLayout.astro";
+import type { Post } from "lib/type";
+
+import AboutMe from "./AboutMe.astro";
+import PostList from "./PostList.astro";
+
+export interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<Layout
+  title="Youssef Moussaoui's blog"
+  description="Long-form chronicles of my adventures building software"
+>
+  <AboutMe />
+  <PostList posts={posts} />
+</Layout>

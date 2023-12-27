@@ -1,16 +1,8 @@
 ---
-import AboutMe from "components/AboutMe.astro";
-import PostList from "components/PostList.astro";
-import Layout from "layouts/BaseLayout.astro";
+import PostPage from "components/PostPage.astro";
 import { getPublishedPosts } from "lib/posts";
 
 const posts = await getPublishedPosts(true);
 ---
 
-<Layout
-  title="Youssef Moussaoui's blog"
-  description="Long-form chronicles of my adventures building software"
->
-  <AboutMe />
-  <PostList posts={posts} />
-</Layout>
+<PostPage posts={posts} />

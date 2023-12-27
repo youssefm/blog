@@ -7,20 +7,23 @@ import { chunk } from "lib/util";
 export async function getStaticPaths() {
   const posts = await getPublishedPosts(true);
   const pages = chunk(posts, PAGE_SIZE);
+  const pageCount = pages.length;
   return pages.map((pagePosts, index) => {
     const pageNumber = index + 1;
     return {
       params: { pageNumber },
-      props: { posts: pagePosts },
+      props: { posts: pagePosts, pageNumber, pageCount },
     };
   });
 }
 
 export interface Props {
   posts: Post[];
+  pageNumber: number;
+  pageCount: number;
 }
 
-const { posts } = Astro.props;
+const { posts, pageNumber, pageCount } = Astro.props;
 ---
 
-<PostPage posts={posts} />
+<PostPage posts={posts} pageNumber={pageNumber} pageCount={pageCount} />

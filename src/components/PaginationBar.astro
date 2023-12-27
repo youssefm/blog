@@ -1,0 +1,40 @@
+---
+import Icon from "astro-icon";
+
+export interface Props {
+  pageNumber: number;
+  pageCount: number;
+}
+
+const { pageNumber, pageCount } = Astro.props;
+---
+
+<div class="border-t border-neutral-700 py-6 flex items-center">
+  <div class="w-24 flex">
+    {
+      pageNumber > 1 && (
+        <a
+          href={`/blog/${pageNumber - 1}`}
+          class="flex items-center text-neutral-200 hover:text-amber-600"
+        >
+          <Icon name="ic:round-chevron-left" class="inline h-6 w-6" /> Previous
+        </a>
+      )
+    }
+  </div>
+  <div class="grow text-center text-sm text-neutral-400">
+    Page {pageNumber} of {pageCount}
+  </div>
+  <div class="w-24 flex justify-end">
+    {
+      pageNumber < pageCount && (
+        <a
+          href={`/blog/${pageNumber + 1}`}
+          class="flex items-center text-neutral-200 hover:text-amber-600"
+        >
+          Next <Icon name="ic:round-chevron-right" class="inline h-6 w-6" />
+        </a>
+      )
+    }
+  </div>
+</div>

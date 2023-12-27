@@ -1,8 +1,14 @@
 ---
 import PostPage from "components/PostPage.astro";
-import { getPublishedPosts } from "lib/posts";
+import { PAGE_SIZE, getPublishedPosts } from "lib/posts";
+import { chunk } from "lib/util";
 
 const posts = await getPublishedPosts(true);
+const pages = chunk(posts, PAGE_SIZE);
 ---
 
-<PostPage posts={posts} />
+<PostPage
+  posts={pages.length > 0 ? pages[0]! : []}
+  pageNumber={1}
+  pageCount={pages.length}
+/>

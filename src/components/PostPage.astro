@@ -3,13 +3,16 @@ import Layout from "layouts/BaseLayout.astro";
 import type { Post } from "lib/type";
 
 import AboutMe from "./AboutMe.astro";
+import PaginationBar from "./PaginationBar.astro";
 import PostList from "./PostList.astro";
 
 export interface Props {
   posts: Post[];
+  pageNumber: number;
+  pageCount: number;
 }
 
-const { posts } = Astro.props;
+const { posts, pageNumber, pageCount } = Astro.props;
 ---
 
 <Layout
@@ -18,4 +21,9 @@ const { posts } = Astro.props;
 >
   <AboutMe />
   <PostList posts={posts} />
+  {
+    pageCount > 1 && (
+      <PaginationBar pageNumber={pageNumber} pageCount={pageCount} />
+    )
+  }
 </Layout>

@@ -25,7 +25,10 @@ const { remarkPluginFrontmatter } = await post.render();
   </div>
   <div class="prose text-neutral-300">{post.data.description}</div>
   <div>
-    <a href={`/posts/${post.slug}`} class="hover:text-amber-600">
+    <a
+      href={`/posts/${post.slug}`}
+      class="text-neutral-200 hover:text-amber-600"
+    >
       Read &rarr;</a
     >
   </div>

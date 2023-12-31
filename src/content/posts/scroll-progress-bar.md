@@ -2,10 +2,9 @@
 title: "Animating a progress bar with CSS scroll-driven animations"
 description: "Scroll-driven animations are an exciting new addition to CSS. In this post, we build a scroll-linked progress bar that fills up as you scroll down the page."
 publishedOn: 2023-12-31
-draft: true
 ---
 
-If you're visiting this page using Chrome or another Chromium-based browser, you'll notice an amber progress bar at the top of the page that grows as you read this post. This used to only be possible with Javascript but with the advent of [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations), we can achieve this effect with just CSS.
+If you're visiting this page using Chrome or another Chromium-based browser, you'll notice an amber progress bar at the top of the page that grows as you read this post. This used to only be possible with Javascript but with the advent of [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations), we can easily achieve this effect with just CSS.
 
 **tldr:** here's the HTML and CSS. Keep reading for an explanation of how this all works.
 
@@ -85,7 +84,7 @@ The last line of CSS is the `background-color`, which we can set to whatever col
 
 At the moment, CSS scroll-driven animations are only supported by Chrome and other Chromium-based browsers. However, Firefox is working on an implementation and we can only hope other browsers, *cough... Safari*, will follow suit. You can check [this Caniuse table](https://caniuse.com/mdn-css_properties_scroll-timeline) for the current state of browser support.
 
-This is why we have to be careful about wrapping our CSS with `@supports (animation-timeline: scroll())`. We're telling browsers to ignore the CSS if scroll-driven animations are not supported. Without this at-rule, visitors would always see a full progress bar in browsers that don't support these animations.
+This is why we have to be careful about wrapping our CSS with `@supports (animation-timeline: scroll())`. We're telling browsers to ignore the CSS if scroll-driven animations are not supported. Without this at-rule, visitors would always see a full progress bar in browsers lacking support.
 
 ## Conclusion
 

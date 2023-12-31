@@ -89,7 +89,7 @@ This is why we have to be careful about wrapping our CSS with `@supports (animat
 
 ## Conclusion
 
-Scroll-driven animations are an exciting new addition to CSS. In this post, we demonstrated how we can easily build a scroll-linked progress bar, but there are many more exciting ways to use these animations. Here are a couple resources worth checking out if you're looking to learn more:
+Scroll-driven animations are an exciting new addition to CSS. In this post, we demonstrated how we can easily build a scroll-linked progress bar, but there are many more ways to use these animations. Here are a couple resources worth checking out if you're looking to learn more:
 
 * [A Chrome article with an overview of scroll-driven animations](https://developer.chrome.com/docs/css-ui/scroll-driven-animations)
 * [A bunch of demos to show off scroll-driven animations](https://scroll-driven-animations.style/)

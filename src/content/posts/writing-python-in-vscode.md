@@ -1,5 +1,5 @@
 ---
-title: Writing Python in VS Code just got a whole lot better
+title: "Writing Python in VS Code just got a whole lot better"
 description: "Developing Python applications in VS Code just got a lot better this week with the release of Pylance version 2022.12.21. It introduces a new option that lets you auto import user symbols, saving you time and reducing interruptions to your flow."
 publishedOn: 2022-12-11
 ---

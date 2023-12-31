@@ -1,5 +1,5 @@
 ---
-title: Transferring cookies from one domain to another
+title: "Transferring cookies from one domain to another"
 description: "Migrating session cookies from one domain to another is trickier than it seems. In this post, I explore how we approached this problem at Inflection AI."
 publishedOn: 2023-11-14
 ---

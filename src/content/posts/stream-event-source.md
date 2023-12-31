@@ -1,5 +1,5 @@
 ---
-title: Async iteration of Server-sent events with stream-event-source
+title: "Async iteration of Server-sent events with stream-event-source"
 description: "Asynchronous iteration seems especially well suited for Server-sent events. In this post, we introduce a new npm package for reading SSEs through the async iteration protocol."
 publishedOn: 2023-10-21
 ---
@@ -17,7 +17,7 @@ async function main() {
   const controller = new AbortController();
   const stream = streamEventSource(
     "https://stream.wikimedia.org/v2/stream/recentchange",
-    { signal: controller.signal }
+    { signal: controller.signal },
   );
 
   const now = Date.now();

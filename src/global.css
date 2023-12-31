@@ -8,10 +8,10 @@ html {
 
 @supports (animation-timeline: scroll()) {
   @keyframes scaleProgress {
-    0% {
+    from {
       transform: scaleX(0);
     }
-    100% {
+    to {
       transform: scaleX(1);
     }
   }
@@ -21,10 +21,10 @@ html {
     top: 0;
     left: 0;
     right: 0;
+    height: 8px;
     animation: scaleProgress linear;
     animation-timeline: scroll();
     transform-origin: left;
-    height: 8px;
     background-color: theme("colors.amber.700");
   }
 

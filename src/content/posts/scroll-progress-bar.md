@@ -1,5 +1,5 @@
 ---
-title: "Adding a progress bar with CSS scroll-driven animations"
+title: "Animating a progress bar with CSS scroll-driven animations"
 description: "Scroll-driven animations are an exciting new addition to CSS. In this post, we build a scroll-linked progress bar that fills up as you scroll down the page."
 publishedOn: 2023-12-31
 draft: true

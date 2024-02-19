@@ -2,6 +2,13 @@
 const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+const round = (num) =>
+  num
+    .toFixed(7)
+    .replace(/(\.[0-9]+?)0+$/, "$1")
+    .replace(/\.0$/, "");
+const em = (px, base) => `${round(px / base)}em`;
+
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}"],
   theme: {
@@ -21,6 +28,7 @@ module.exports = {
             maxWidth: "70ch",
             h2: {
               color: colors.amber["500"],
+              marginTop: em(32, 20),
             },
             a: {
               "&:hover": {
@@ -54,6 +62,9 @@ module.exports = {
         },
         lg: {
           css: {
+            h2: {
+              marginTop: em(44, 30),
+            },
             pre: {
               paddingLeft: 0,
               paddingRight: 0,

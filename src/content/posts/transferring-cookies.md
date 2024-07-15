@@ -43,5 +43,3 @@ So altogether, our transfer process looked like this:
 ## Conclusion
 
 By using this approach, we allowed users to seamlessly migrate from the old domain to the new one while preserving their sessions. Finally, after all active sessions had expired, we were able to go back and clean up this logic.
-
-If you're interested in career opportunities at Inflection, we're hiring! Find [our open roles here](https://inflection.ai/careers#open-roles).

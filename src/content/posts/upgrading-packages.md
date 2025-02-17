@@ -17,7 +17,7 @@ Let's start with the benefits in our equation. The benefits for any particular p
 - Security fixes
 - Performance improvements
 
-While these are all good things, how much your application benefits from these is highly specific to your application. You might not need any of the new features and not be affected by any of the bugs that an upgrade provides. Or on the other hand, you might really need a particular feature to build something new or a particular bug fix to address an issue.
+While these are all good things, how much your application benefits from these is highly specific to your application. You might not need any of the features an upgrade provides and not be affected by any of the bugs that an upgrade fixes. Or on the other hand, you might really need a particular feature to build something new or a particular bug fix to address an issue.
 
 There's another class of benefits that are more subtle. By upgrading versions, you're making _future_ upgrades easier. Your application might not benefit much from upgrading right now, but someday, you might need to upgrade to a future version that hasn't been released yet. And when that day comes, you'll be glad you've already done part of the work to get you there. Finally, you're also keeping that library within the support window for bug fixes and security fixes. This benefit is even larger if you're upgrading to an LTS version (long-term support) of the package where you can often expect this support for years.
 

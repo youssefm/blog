@@ -58,6 +58,10 @@ module.exports = {
               borderLeft: "2px solid #2a69a9",
               paddingLeft: "1.0178571em",
             },
+            "p > img": {
+              marginLeft: "auto",
+              marginRight: "auto",
+            },
           },
         },
         lg: {

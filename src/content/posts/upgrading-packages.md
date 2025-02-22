@@ -4,7 +4,7 @@ description: "By applying cost-benefit analysis from economics, I delve into how
 publishedOn: 2025-02-16
 ---
 
-At the end of my sophomore year at Caltech, I made the decision to forgo a career in physics and chose instead to focus my studies on computer science and economics. That was the start of my love story with the field of economics. Many people mistakenly believe that economics is limited to the study of money, but it's really the study of decision-making under scarcity. That means you can apply economic thinking to many facets of life, including software development.
+At the end of my sophomore year at Caltech, I made the decision to forgo a career in physics and chose instead to focus my studies on computer science and economics. That was the start of my love story with the field of economics. Many people mistakenly believe that economics is limited to the study of money, but it's really much more than that. Economics is **the study of decision-making under scarcity**. That means you can apply economic thinking to many facets of life, including software development.
 
 This will be the start of a series where I attempt to do just that—applying cost-benefit analysis to software engineering practices. How many tests should you be writing? How should you decide which libraries to depend on? What kind of technical debt should you take on? In this first post, we'll discuss the costs and benefits of upgrading open-source packages for production systems, and how to decide when to do so.
 

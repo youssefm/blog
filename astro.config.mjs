@@ -10,12 +10,6 @@ import { remarkReadingTime } from "./src/plugins/reading-time";
 
 const prettyCodeOptions = {
   theme: JSON.parse(fs.readFileSync("./themes/darkly-color-theme.json")),
-  onVisitHighlightedLine(node) {
-    node.properties.className.push("highlighted");
-  },
-  onVisitHighlightedWord(node) {
-    node.properties.className = ["word"];
-  },
 };
 
 // https://astro.build/config

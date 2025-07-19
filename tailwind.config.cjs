@@ -47,11 +47,11 @@ module.exports = {
               display: "inline-block",
               minWidth: "100%",
             },
-            ".line": {
+            "[data-line]": {
               paddingLeft: "1.1428571em",
               paddingRight: "1.1428571em",
             },
-            ".line.highlighted": {
+            "[data-highlighted-line]": {
               display: "inline-block",
               minWidth: "100%",
               backgroundColor: "#c8c8ff1a",
@@ -73,11 +73,11 @@ module.exports = {
               paddingLeft: 0,
               paddingRight: 0,
             },
-            ".line": {
+            "[data-line]": {
               paddingLeft: "2.6428571em",
               paddingRight: "2.6428571em",
             },
-            ".line.highlighted": {
+            "[data-highlighted-line]": {
               paddingLeft: "2.5178571em",
             },
           },

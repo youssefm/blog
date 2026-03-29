@@ -1,6 +1,6 @@
 ---
 title: "Introducing SparkID: fast, sortable, compact unique IDs"
-description: "UUIDs and nanoid are the go-to choices for generating unique IDs, but both come with tradeoffs. In this post, I introduce SparkID, a library for generating time-sortable, strictly monotonic, 22-character unique IDs in JavaScript, Python, and Rust."
+description: "UUIDs and nanoid are the go-to choices for generating unique IDs, but both come with tradeoffs. In this post, I introduce SparkID, a library for generating time-sortable, strictly monotonic, 21-character unique IDs in JavaScript, Python, and Rust."
 publishedOn: 2026-03-28
 ---
 
@@ -40,26 +40,26 @@ ULID uses Crockford's Base32, which only encodes 5 bits per character. A more co
 
 Each of these formats gets something right, but none of them check every box. I wanted compact IDs like nanoid, time-sortability like UUID v7, no coordination like ULID, and **strict monotonic ordering** even within the same millisecond — along with IDs that are genuinely easy to read and copy. That's why I built [`SparkID`](https://github.com/youssefm/sparkid).
 
-SparkID generates 22-character IDs using the [Base58](https://en.wikipedia.org/wiki/Binary-to-text_encoding#Base58) alphabet, which specifically excludes `0`, `O`, `I`, and `l`. No visual ambiguity, no hyphens, no underscores. Just clean, alphanumeric strings.
+SparkID generates 21-character IDs using the [Base58](https://en.wikipedia.org/wiki/Binary-to-text_encoding#Base58) alphabet, which specifically excludes `0`, `O`, `I`, and `l`. No visual ambiguity, no hyphens, no underscores. Just clean, alphanumeric strings.
 
 Here's what it looks like in practice:
 
 ```ts
 import { generateId } from "sparkid";
 
-const id = generateId(); // "1ocmpHE1bFnygEBAPTzMK4"
+const id = generateId(); // "1ocmpHE1bFnygEBAPTzMK"
 ```
 
 ```python
 from sparkid import generate_id
 
-id = generate_id()  # "1ocmpHE1bFnygEBAPTzMK4"
+id = generate_id()  # "1ocmpHE1bFnygEBAPTzMK"
 ```
 
 ```rust
 use sparkid::SparkId;
 
-let id = SparkId::new(); // "1ocmpHE1bFnygEBAPTzMK4"
+let id = SparkId::new(); // "1ocmpHE1bFnygEBAPTzMK"
 ```
 
 The library is available in JavaScript, Python, and Rust, and all three implementations are consistent in their behavior and ID format.
@@ -72,7 +72,7 @@ All of this extra structure might sound like it comes at a performance cost. In 
 
 In JavaScript, SparkID generates 9.9 million IDs per second, roughly 2x faster than UUID v4 and nanoid. In Python, it hits 1.2 million IDs per second, about 4x faster than UUID v4. And in Rust, SparkID produces nearly 20 million IDs per second, over 15x faster than UUID v4 and nanoid. If you'd like to run the benchmarks yourself, the [benchmark script](https://github.com/youssefm/sparkid/blob/main/bench_compare.py) is in the repo.
 
-A big part of what makes this possible is that SparkID batches its random byte generation. Instead of calling into the system's cryptographic random number generator for every single ID, it generates random bytes in large batches (16KB at a time in JavaScript and Rust) and pulls from that pool as needed. The JavaScript and Python implementations also cache a pre-concatenated prefix string so that the common case of generating another ID within the same millisecond is just a quick counter increment and a string concatenation. In Rust, the `SparkId` type is a stack-allocated `[u8; 22]`, which means generating an ID involves zero heap allocation.
+A big part of what makes this possible is that SparkID batches its random byte generation. Instead of calling into the system's cryptographic random number generator for every single ID, it generates random bytes in large batches (16KB at a time in JavaScript and Rust) and pulls from that pool as needed. The JavaScript and Python implementations also cache a pre-concatenated prefix string so that the common case of generating another ID within the same millisecond is just a quick counter increment and a string concatenation. In Rust, the `SparkId` type is a stack-allocated `[u8; 21]`, which means generating an ID involves zero heap allocation.
 
 ## Under the hood
 
@@ -81,14 +81,14 @@ A big part of what makes this possible is that SparkID batches its random byte g
 Every SparkID is structured as three parts:
 
 ```
-[8-char timestamp][6-char counter][8-char random]
+[8-char timestamp][6-char counter][7-char random]
 ```
 
-For example, given the SparkID `1ocmpHE1bFnygEBAPTzMK4`:
+For example, given the SparkID `1ocmpHE1bFnygEBAPTzMK`:
 
 ```
-1ocmpHE1  bFnygE  BAPTzMK4
-────────  ──────  ────────
+1ocmpHE1  bFnygE  BAPTzMK
+────────  ──────  ───────
 timestamp counter  random
 ```
 
@@ -96,7 +96,7 @@ The **timestamp** is the current time in milliseconds since the Unix epoch, enco
 
 The **counter** is what gives SparkID its strict monotonicity guarantee. At the start of each millisecond, the counter is seeded with a random value. For every subsequent ID generated within that same millisecond, the counter increments. This means two IDs generated in the same millisecond, in the same process, will always sort in the order they were created.
 
-The **random tail** is 8 characters of cryptographically secure randomness, unique to each ID. This is what prevents collisions across different processes and machines.
+The **random tail** is 7 characters of cryptographically secure randomness, unique to each ID. This is what prevents collisions across different processes and machines.
 
 ### Collision resistance
 
@@ -104,7 +104,7 @@ A natural question when looking at a new ID format is: how likely are collisions
 
 UUID v7 has 128 total bits, but 48 are used for the timestamp, 4 for the version, and 2 for the variant. That leaves **74 bits** of randomness per ID, or $2^{74}$ possible values per millisecond.
 
-SparkID has 14 Base58 characters of entropy per millisecond (6 for the counter seed and 8 for the random tail). Each Base58 character encodes about 5.86 bits, which gives us roughly **82 bits** of entropy, or $58^{14}$ possible values per millisecond. That's about 258 times more unique values per millisecond than UUID v7, despite SparkID being 14 characters shorter.
+SparkID has 13 Base58 characters of entropy per millisecond (6 for the counter seed and 7 for the random tail). Each Base58 character encodes about 5.86 bits, which gives us roughly **76 bits** of entropy, or $58^{13}$ possible values per millisecond. That's about 4 times more unique values per millisecond than UUID v7, despite SparkID being 15 characters shorter.
 
 ### Rejection sampling
 

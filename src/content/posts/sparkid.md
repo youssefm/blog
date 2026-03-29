@@ -6,19 +6,35 @@ publishedOn: 2026-03-28
 
 If you've ever built a web application, you've almost certainly had to generate unique IDs. Maybe you needed primary keys for your database rows, or unique identifiers for API resources, or trace IDs for your logging pipeline. The two most popular choices today are UUIDs and [nanoid](https://github.com/ai/nanoid), and both get the job done. But both come with tradeoffs that have bugged me for a while. Let me explain.
 
-## The limits of UUID v7
+## Why existing ID generators fall short
+
+### UUID v7
 
 UUID v7 is the latest UUID standard and a real improvement over its predecessors. It embeds a timestamp, which means IDs sort in roughly chronological order. That alone makes it a solid choice for database primary keys. But UUIDs have always been awkward to work with in practice.
 
 They're 36 characters long, including four hyphens: `019553e6-a9b7-7803-9ea4-ceae2f3e7d0f`. That's a lot of characters to pass around in URLs, log lines, and API responses. And those hyphens are a constant source of friction. Try double-clicking a UUID to select it and you'll only grab one segment. Want to copy the whole thing? You have to carefully click and drag, or triple-click and hope you don't grab surrounding whitespace. It's a small annoyance that adds up when you're debugging or grepping through logs all day.
 
-## Where nanoid falls short
+### nanoid
 
 nanoid takes a different approach. It generates short, random, URL-friendly IDs and lets you configure the length and alphabet. It's fast and compact, which is why it's become so popular. But nanoid IDs are purely random, and that has real consequences.
 
 The most obvious one is that you can't sort by ID to get chronological order. If you want to display records in creation order, you need a separate timestamp column and an index to go with it. But the deeper problem is performance. Most databases store rows in a [B+ tree](https://en.wikipedia.org/wiki/B%2B_tree) ordered by primary key. When your primary keys are sequential, new rows get appended to the end of the tree, and the database can fill pages to about 94% capacity. When your primary keys are random, new rows land on random pages scattered across the tree, causing frequent **page splits** and dropping page utilization to as low as 50%. On large tables, this means almost every insert has to read a page from disk before writing to it, doubling the I/O cost. Time-sorted IDs avoid this entirely by keeping inserts at the "hot" end of the tree.
 
 nanoid's default alphabet also includes characters that are easy to misread: lowercase `l`, uppercase `O`, hyphens, and underscores. If you've ever tried to copy an ID out of a log or read one aloud to a coworker, you know how frustrating this can be. "Was that an `l` or a `1`? Is that an `O` or a `0`?"
+
+### Snowflake IDs
+
+Twitter's [Snowflake](https://en.wikipedia.org/wiki/Snowflake_ID) format is another popular approach: a 64-bit integer split into a 41-bit timestamp, a 10-bit node ID, and a 12-bit sequence number. Discord and Instagram both use variations of it. It's compact and sortable, but it was designed for a very specific kind of infrastructure.
+
+The 10-bit node ID means every machine that generates IDs needs to be assigned a unique number from 0 to 1,023. That requires some kind of central registry, like the ZooKeeper cluster Twitter used, to make sure no two machines end up with the same node ID. If they do, you get silent collisions.
+
+The 12-bit sequence number also means each node can only generate 4,096 IDs per millisecond before it has to stall and wait for the clock to tick forward. That's fine for most use cases, but it's a hard ceiling baked into the format.
+
+### ULID
+
+[ULID](https://github.com/ulid/spec) was designed to solve exactly the problems above: it's time-sortable, avoids hyphens, and is shorter than UUIDs. At 26 characters in its string form, it's a real improvement over UUID's 36. But it's still longer than it needs to be, and the reason comes down to encoding.
+
+ULID uses Crockford's Base32, which only encodes 5 bits per character. A more compact encoding like Base58 gets you about 5.86 bits per character, which is enough to pack the same amount of information into 22 characters instead of 26.
 
 ## Introducing SparkID
 
@@ -48,7 +64,7 @@ let id = SparkId::new(); // "1ocmpHE1bFnygEBAPTzMK4"
 
 The library is available in JavaScript, Python, and Rust, and all three implementations are consistent in their behavior and ID format.
 
-## And it's fast
+## Performance
 
 All of this extra structure might sound like it comes at a performance cost. In practice, the opposite is true. I benchmarked SparkID against UUID v4, UUID v7, nanoid, and [ulid](https://github.com/ulid/spec) across all three languages, and SparkID was the fastest in every one of them.
 
@@ -58,7 +74,9 @@ In JavaScript, SparkID generates 9.9 million IDs per second, roughly 2x faster t
 
 A big part of what makes this possible is that SparkID batches its random byte generation. Instead of calling into the system's cryptographic random number generator for every single ID, it generates random bytes in large batches (16KB at a time in JavaScript and Rust) and pulls from that pool as needed. The JavaScript and Python implementations also cache a pre-concatenated prefix string so that the common case of generating another ID within the same millisecond is just a quick counter increment and a string concatenation. In Rust, the `SparkId` type is a stack-allocated `[u8; 22]`, which means generating an ID involves zero heap allocation.
 
-## Anatomy of a SparkID
+## Under the hood
+
+### Anatomy of a SparkID
 
 Every SparkID is structured as three parts:
 
@@ -80,15 +98,13 @@ The **counter** is what gives SparkID its strict monotonicity guarantee. At the 
 
 The **random tail** is 8 characters of cryptographically secure randomness, unique to each ID. This is what prevents collisions across different processes and machines.
 
-## Collision resistance
+### Collision resistance
 
 A natural question when looking at a new ID format is: how likely are collisions? This comes down to how many bits of entropy each ID has within a given millisecond.
 
 UUID v7 has 128 total bits, but 48 are used for the timestamp, 4 for the version, and 2 for the variant. That leaves **74 bits** of randomness per ID, or $2^{74}$ possible values per millisecond.
 
 SparkID has 14 Base58 characters of entropy per millisecond (6 for the counter seed and 8 for the random tail). Each Base58 character encodes about 5.86 bits, which gives us roughly **82 bits** of entropy, or $58^{14}$ possible values per millisecond. That's about 258 times more unique values per millisecond than UUID v7, despite SparkID being 14 characters shorter.
-
-## A couple interesting design details
 
 ### Rejection sampling
 

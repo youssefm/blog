@@ -4,7 +4,9 @@ import icon from "astro-icon";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
+import remarkMath from "remark-math";
 
 import { remarkReadingTime } from "./src/plugins/reading-time";
 
@@ -27,8 +29,9 @@ export default defineConfig({
         },
       ],
       [rehypePrettyCode, prettyCodeOptions],
+      rehypeKatex,
     ],
-    remarkPlugins: [remarkReadingTime],
+    remarkPlugins: [remarkMath, remarkReadingTime],
   },
   site: "https://www.youssefm.com",
   trailingSlash: "never",

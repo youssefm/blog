@@ -18,7 +18,7 @@ nanoid takes a different approach. It generates short, random, URL-friendly IDs 
 
 The most obvious one is that you can't sort by ID to get chronological order. If you want to display records in creation order, you need a separate timestamp column and an index to go with it. But the deeper problem is performance. Most databases store rows in a [B+ tree](https://en.wikipedia.org/wiki/B%2B_tree) ordered by primary key. When your primary keys are sequential, new rows get appended to the end of the tree, and the database can fill pages to about 94% capacity. When your primary keys are random, new rows land on random pages scattered across the tree, causing frequent **page splits** and dropping page utilization to as low as 50%. On large tables, this means almost every insert has to read a page from disk before writing to it, doubling the I/O cost. Time-sorted IDs avoid this entirely by keeping inserts at the "hot" end of the tree.
 
-nanoid's default alphabet also includes characters that are easy to misread: lowercase `l`, uppercase `O`, hyphens, and underscores. If you've ever tried to copy an ID out of a log or read one aloud to a coworker, you know how frustrating this can be. "Was that an `l` or a `1`? Is that an `O` or a `0`?" You can customize the alphabet, but then you're taking on the responsibility of making sure your custom alphabet doesn't introduce bias or other issues.
+nanoid's default alphabet also includes characters that are easy to misread: lowercase `l`, uppercase `O`, hyphens, and underscores. If you've ever tried to copy an ID out of a log or read one aloud to a coworker, you know how frustrating this can be. "Was that an `l` or a `1`? Is that an `O` or a `0`?"
 
 ## Introducing SparkID
 
@@ -50,7 +50,7 @@ The library is available in JavaScript, Python, and Rust, and all three implemen
 
 ## And it's fast
 
-You might expect that all this extra structure comes at a performance cost. More structure usually means more work per ID, right? It turns out the opposite is true. I benchmarked SparkID against UUID v4, UUID v7, nanoid, and [ulid](https://github.com/ulid/spec) across all three languages, and SparkID came out on top in every single one.
+All of this extra structure might sound like it comes at a performance cost. In practice, the opposite is true. I benchmarked SparkID against UUID v4, UUID v7, nanoid, and [ulid](https://github.com/ulid/spec) across all three languages, and SparkID was the fastest in every one of them.
 
 ![SparkID benchmark results](assets/sparkid_benchmark.png)
 

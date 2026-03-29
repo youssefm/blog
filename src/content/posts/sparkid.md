@@ -32,7 +32,7 @@ The 12-bit sequence number also means each node can only generate 4,096 IDs per 
 
 ### ULID
 
-[ULID](https://github.com/ulid/spec) was designed to solve exactly the problems above: it's time-sortable, avoids hyphens, and is shorter than UUIDs. At 26 characters in its string form, it's a real improvement over UUID's 36. But it's still longer than it needs to be, and the reason comes down to encoding.
+[ULID](https://github.com/ulid/spec) gets closer to the mark: it's time-sortable, avoids hyphens, and at 26 characters it's shorter than UUIDs. But it's still longer than it needs to be, and the reason comes down to encoding.
 
 ULID uses Crockford's Base32, which only encodes 5 bits per character. A more compact encoding like Base58 gets you about 5.86 bits per character, which is enough to pack the same amount of information into 22 characters instead of 26.
 

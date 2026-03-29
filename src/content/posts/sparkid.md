@@ -52,7 +52,7 @@ The library is available in JavaScript, Python, and Rust, and all three implemen
 
 All of this extra structure might sound like it comes at a performance cost. In practice, the opposite is true. I benchmarked SparkID against UUID v4, UUID v7, nanoid, and [ulid](https://github.com/ulid/spec) across all three languages, and SparkID was the fastest in every one of them.
 
-![SparkID benchmark results](assets/sparkid_benchmark.png)
+![SparkID benchmark results](assets/sparkid-benchmark.png)
 
 In JavaScript, SparkID generates 9.9 million IDs per second, roughly 2x faster than UUID v4 and nanoid. In Python, it hits 1.2 million IDs per second, about 4x faster than UUID v4. And in Rust, SparkID produces nearly 20 million IDs per second, over 15x faster than UUID v4 and nanoid. If you'd like to run the benchmarks yourself, the [benchmark script](https://github.com/youssefm/sparkid/blob/main/bench_compare.py) is in the repo.
 

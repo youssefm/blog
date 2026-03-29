@@ -38,7 +38,7 @@ ULID uses Crockford's Base32, which only encodes 5 bits per character. A more co
 
 ## Introducing SparkID
 
-I wanted an ID generator that combined the best properties of both: compact like nanoid, time-sortable like UUID v7, but with **strict monotonic ordering** even within the same millisecond. And I wanted IDs that are genuinely easy to read and copy. So I built [`SparkID`](https://github.com/youssefm/sparkid).
+Each of these formats gets something right, but none of them check every box. I wanted compact IDs like nanoid, time-sortability like UUID v7, no coordination like ULID, and **strict monotonic ordering** even within the same millisecond — along with IDs that are genuinely easy to read and copy. That's why I built [`SparkID`](https://github.com/youssefm/sparkid).
 
 SparkID generates 22-character IDs using the [Base58](https://en.wikipedia.org/wiki/Binary-to-text_encoding#Base58) alphabet, which specifically excludes `0`, `O`, `I`, and `l`. No visual ambiguity, no hyphens, no underscores. Just clean, alphanumeric strings.
 
